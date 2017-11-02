@@ -16,7 +16,7 @@ minima:
 #header_pages:
 # - about.html
 
-paginate:3
+paginate: 3
 paginate_path: "page:num"
 
 # Build settings
