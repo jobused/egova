@@ -3,3 +3,6 @@ description: 喜迎十九大, 共筑和谐社会.
 show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
+
+plugins:
+  - jekyll-seo-tag
