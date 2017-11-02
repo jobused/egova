@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Contributing to The Slate Theme
 
 Hi there! We're thrilled that you'd like to contribute to The Slate Theme. Your help is essential for keeping it great.
