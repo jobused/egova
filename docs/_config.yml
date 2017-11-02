@@ -10,7 +10,7 @@ logo: /favicon.png
 
 # Comment
 # e.g disqus: seansun
-disqus:
+disqus: seansun
 duoshuo:
 
 # Analytics
@@ -19,3 +19,13 @@ ga: UA-65933410-1
 
 # Copyright Infomation
 startyear: 2015
+
+theme: apollo
+
+# 在归档页面显示所有文章
+# 需要上面安装的 hexo-generator-archive 插件支持
+archive_generator:
+    per_page: 0
+    yearly: false
+    monthly: false
+    daily: false
