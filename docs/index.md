@@ -2,5 +2,6 @@
 layout: default
 ---
 
-[goDocs](./docs)
+[goDocs](./_plugins/History.markdown)
+[goDocs](./_plugins/docs/README.md)
 [goTest](./docs/SUPPORT.md)
