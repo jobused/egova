@@ -4,5 +4,7 @@ show_downloads: false
 google_analytics:
 theme: jekyll-theme-slate
 
+paginate: 5
+
 plugins:
   - jekyll-seo-tag
