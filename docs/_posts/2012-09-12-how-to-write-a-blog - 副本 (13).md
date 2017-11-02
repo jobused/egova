@@ -1,4 +1,0 @@
----
----
-
-# god, it is worked
