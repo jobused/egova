@@ -1,104 +1,92 @@
-# 智云基础数据导入总结_LBB
+# The Slate theme
 
-@(Documents)
+[![Build Status](https://travis-ci.org/pages-themes/slate.svg?branch=master)](https://travis-ci.org/pages-themes/slate) [![Gem Version](https://badge.fury.io/rb/jekyll-theme-slate.svg)](https://badge.fury.io/rb/jekyll-theme-slate)
 
----
-[toc]
+*Slate is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://pages-themes.github.io/slate), or even [use it today](#usage).*
 
-## 运行环境
-* 操作系统: centOS6.5
-* 部署版本: 智云一键部署v1.04
+![Thumbnail of slate](thumbnail.png)
 
-## 1. 更换智云登陆图片
-* 将style1.png和style1-logo.png替换以下目录中的相应文件: 
-`/egova/web/eUrbanMIS/style/urban/common/css/images/login`
-* 然后进行如下操作: 
-`应用管理→系统配置→主系统配置→MIS→系统登陆→登陆页面样式[选中相应的样式,要和style后面的数字相一致]→保存`
-* 然后清空浏览器缓存, 刷新即可看到登陆图片已更换;
+## Usage
 
-## 2. 更换地形图
-* 将用arcGIS切好的图层数据替换到以下目录:
-`/egova/web/eUrbanGIS/tilemap/stdcg`
-* 从图层数据的配置文件conf.cdi中获取: 
- * 地图范围 →格式: `xmin,ymin,xmax,ymax`
-* 从图层数据的配置文件conf.xml中获取: 
- * 瓦片大小: `<TileRows>瓦片大小</TileRows>`→格式: `瓦片大小`
- * 起算原点: `<X>起算原点x</X><Y>起算原点y</Y>`→格式: `起算原点x,起算原点y`
- * 空间参考: `<WKID>空间参考</WKID>` →如果没有可按照坐标系在 `<资源管理→数据字典管理→空间参考>` 中查询→格式: `空间参考`
- * 比例尺: `<Scale>比例尺</Scale>` →格式: `比例尺除以100后取一位小数, 然后按照从小到大的顺序依次排列, 中间用英文逗号隔开`
- * 地图分辨率: `<Resolution>分辨率</Resolution>` →格式: `由小到大依次排列, 中间用英文逗号隔开`
-* 然后进行如下操作: 
-`资源管理→地图系统设置→地图应用设置→地图配置[填写相应项,其中地图初始位置设为空]→保存→重读配置`; 
-* 然后清空浏览器缓存, 刷新即可看到地形图已替换;
+To use the Slate theme:
 
-## 3. 发布部件
-* 将部署的GIS服务器的`/egova/web`目录下的`geoserver`文件夹拷到本地; 
-* 打开 `GIS小工具`中的`ShpRenameTool`即英文重命名工具, 将部件重命名为英文: 
-![@英文重命名工具使用图示|center](./英文重命名工具使用图示.png)
-*  打开`GIS小工具`中的`servicepublish-localshp`工具: 
-![@部件发布图示01|center](./部件发布图示01.png)
-![@部件发布图示02|center](./部件发布图示02.png)
-![@部件发布图示03|center](./部件发布图示03.png)
-* 将部署的GIS服务器的`/egova/web`目录下的`geoserver`文件夹备份后删掉, 将本地发布的geoserver目录拷入;
-* 刷新缓存, 进入资源管理模块, 进行如下操作: 
- * `服务管理→地图服务→矢量图查询服务→城市管理→获取服务配置→保存`
- * `专题管理→专题管理→新增专题1→专题属性-填写相应项→保存→图层列表[选中左侧相应图层,右侧可不做修改也可排序或增加图层组]→保存`
- * `地图系统设置→地图应用设置→地图配置→重读配置`
-* 然后清空浏览器缓存, 刷新后进行如下操作: 
-`应用管理→岗位设置→网格化城市管理→系统管理员→图层→新增专题1[在右侧把浏览和查询权限全部勾选]→保存→生成本岗位人员权限`
-* 然后清空浏览器缓存, 刷新后即可在地图中查看相应部件图层;
+1. Add the following to your site's `_config.yml`:
 
-## 4. 导入tc_region表
-* 打开arcMap工具进行以下操作: 
-![@arcMap基础操作|center](./arcMap基础操作.png)
-![@arcMap_tc_region_mxd制作图示|center](./arcMap_tc_region_mxd制作图示.png)
-* 远程进入相应的业务库, 然后进行如下操作:
+    ```yml
+    theme: jekyll-theme-slate
+    ```
+
+2. Optionally, if you'd like to preview your site on your computer, add the following to your site's `Gemfile`:
+
+    ```ruby
+    gem "github-pages", group: :jekyll_plugins
+    ```
+
+
+
+## Customizing
+
+### Configuration variables
+
+Slate will respect the following variables, if set in your site's `_config.yml`:
+
+```yml
+title: [The title of your site]
+description: [A short description of your site's purpose]
 ```
-mysql -uroot -p --登入mysql
-egova --mysql默认密码
-set foreign_key_checks=0; --关闭外键关联
-delete from tc_region; --清空tc_region表
-set foreign_key_checks=1; --打开外键关联
-exit --退出数据库
+
+Additionally, you may choose to set the following optional variables:
+
+```yml
+show_downloads: ["true" or "false" to indicate whether to provide a download URL]
+google_analytics: [Your Google Analytics tracking ID]
 ```
-* 打开 `GIS小工具`中的`eGovaToolBoxForMysql`相应版本中的`eGovaToolBox`进行如下操作:
-`数据库[连接相应的业务库]→数据预处理→region表生成`
-![@tc_region表导入图示|center](./tc_region表导入图示.png)
-* 然后进行如下操作: 
-`资源管理→地图系统设置→地图应用设置→图层用途配置[选择社区和单元网格相对应的关键字段和描述字段,与导入tc_region表时设置的相一致]→保存→重读配置`; 
-* 然后清空浏览器缓存, 刷新后登记事件案件时即可自动识别街道和网格数据;
 
-## 5. 导入部件统计
-* 生成部件统计mxd文档, 请进行如下操作: 
- * 打开之前导入tc_region表时制作的mxd文档;
- * 选中`Layers`图层组即根图层组,右键新建一个图层组命名为`城市部件图`;
- * 将中文名部件数据导入`城市部件图`图层组;
- * 保存为mxd文档;
-* 打开 `GIS小工具`中的`eGovaToolBoxForMysql`相应版本中的`eGovaToolBox`进行如下操作:
-`数据库[连接相应的业务库]→统计分析→部件统计→地图文档设置[选中我们刚才制作的部件统计mxd文档]→选择统计区域[参考导入tc_region时的操作]→清空原有表→生成存储过程关联表→执行`
-* 然后打开`资源管理`模块进行如下操作: 
- * `地图系统设置→系统应用配置→应用配置→GeoServer中几何图形的字段名[shp数据源]→地理编码查询方式[单表查询]→坐标类型[平面坐标系]→部件图层共有字段[参考部件数据Attribute table中相应的字段,一般为ObjID]→部件图层统一关键字段[和部件图层共有字段一致]→保存`
- * `数据字典管理→图层字段`,查看左侧有无中文字段, 有则选中,我们一般只用到三个字段分别是`标识码、名称、状态`对应的`字段名称`一般分别是`ObjID、ObjName、objstate`, 实际操作中要和部件数据Attribute table中的字段相一致,选中相应的字段后, 右侧 `字段名称`为实际字段,`字段别名`为描述字段即在地图中查询部件信息时所显示的字段, 修改完毕后`保存`即可;
- * `图层管理→物理图层字段批量导入→清除原有图层字段[选中左侧相应的图层一般全选，选中右侧相应的字段,即地图中查询部件时想要显示的部件信息]→确定`
- * `地图系统设置→地图应用设置→地图配置→重读配置`
-* 然后清空浏览器缓存, 刷新后重启MIS和GIS`tomcat`; 
-* 此时登记部件案件时即可自动识别部件编码, 无法识别请参考[FAQ1获取服务配置](#FAQ1)
+### Stylesheet
 
-## 6. 导入地理编码
-* 生成地理编码mxd文档, 请进行如下操作: 
- * 打开之前导入tc_region表时制作的mxd文档;
- * 清空`地形图`图层组中的所有图层, 导入地理编码数据, 一般只导入`兴趣点`即可; 
- * 保存为地理编码mxd文档; 
-* 打开 `GIS小工具`中的`eGovaToolBoxForMysql`相应版本中的`eGovaToolBox`进行如下操作:
-`数据库[连接相应的业务库]→数据预处理→地理编码数据入库→地图文档设置[选中我们刚才生成的地理编码mxd文档]→下一步→左侧[选中相应图层]→右侧[地点名称,选择Attribute table中的相应字段]→清空表→单表查询→执行`
-* 然后清空浏览器缓存, 刷新后即可在地图中搜索位置, 登记案件时也可自动识别`地址描述`, 具体效果和`兴趣点`数据丰富度有关, 若数据过少可能会有`无位置描述`的情况出现, 请多试几次, 勿要出现一次就以为导入失败; 
+If you'd like to add your own custom styles:
 
-## FAQ
-### <span id="FAQ1">1. 获取服务配置</span>
-* 进入资源管理模块, 进行如下操作: 
- * `服务管理→地图服务→矢量图查询服务→城市管理→获取服务配置→保存`
- * `专题管理→专题管理→新增专题1→专题属性-填写相应项→保存→图层列表[选中左侧相应图层,右侧可不做修改也可排序或增加图层组]→保存`
- * `地图系统设置→地图应用设置→地图配置→重读配置`
-* 然后清空浏览器缓存, 刷新后进行如下操作: 
-`应用管理→岗位设置→网格化城市管理→系统管理员→图层→新增专题1[在右侧把浏览和查询权限全部勾选]→保存→生成本岗位人员权限`
-* 然后清空浏览器缓存, 刷新后即可
+1. Create a file called `/assets/css/style.scss` in your site
+2. Add the following content to the top of the file, exactly as shown:
+    ```scss
+    ---
+    ---
+
+    @import "{{ site.theme }}";
+    ```
+3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
+
+### Layouts
+
+If you'd like to change the theme's HTML layout:
+
+1. [Copy the original template](https://github.com/pages-themes/slate/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
+2. Create a file called `/_layouts/default.html` in your site
+3. Paste the default layout content copied in the first step
+4. Customize the layout as you'd like
+
+## Roadmap
+
+See the [open issues](https://github.com/pages-themes/slate/issues) for a list of proposed features (and known issues).
+
+## Project philosophy
+
+The Slate theme is intended to make it quick and easy for GitHub Pages users to create their first (or 100th) website. The theme should meet the vast majority of users' needs out of the box, erring on the side of simplicity rather than flexibility, and provide users the opportunity to opt-in to additional complexity if they have specific needs or wish to further customize their experience (such as adding custom CSS or modifying the default layout). It should also look great, but that goes without saying.
+
+## Contributing
+
+Interested in contributing to Slate? We'd love your help. Slate is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](CONTRIBUTING.md) for instructions on how to contribute.
+
+### Previewing the theme locally
+
+If you'd like to preview the theme locally (for example, in the process of proposing a change):
+
+1. Clone down the theme's repository (`git clone https://github.com/pages-themes/slate`)
+2. `cd` into the theme's directory
+3. Run `script/bootstrap` to install the necessary dependencies
+4. Run `bundle exec jekyll serve` to start the preview server
+5. Visit [`localhost:4000`](http://localhost:4000) in your browser to preview the theme
+
+### Running tests
+
+The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` one before the test script will work.
