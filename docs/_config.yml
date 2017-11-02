@@ -1,0 +1,27 @@
+title: egova
+author: LBB
+email: 247369731@qq.com
+description: 喜迎十九大, 共筑和谐社会.
+
+# twitter_username: jekyllrb
+# github_username:  jekyll
+
+# Minima date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+minima:
+  date_format: "%b %-d, %Y"
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+# - about.html
+
+paginate: 3
+paginate_path: "page:num"
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-cayman
+exclude:
+  - Gemfile
+  - Gemfile.lock
