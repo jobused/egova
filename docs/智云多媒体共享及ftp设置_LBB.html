@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><title>智云多媒体共享及ftp设置_LBB</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: "Helvetica Neue",Arial,"Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei",SimSun,Song,sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="智云多媒体共享及ftp设置lbb">智云多媒体共享及ftp设置_LBB</h1>
+
+<hr>
+
+<h2 id="运行环境">运行环境</h2>
+
+<ul><li>操作系统: centOS6.5</li>
+<li>部署版本: 智云一键部署v1.04</li>
+</ul>
+
+<hr>
+
+<ol start="1"><li rel="1">设置MediaRoot的用户组</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-bash hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>chown -R egovaftp:egovaftp /egova/MediaRoot
+</div></code></pre>
+
+<ol start="2"><li rel="2">查看ftp权限配置</li>
+</ol>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-bash hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>getsebool <span class="hljs-_">-a</span> | grep ftp
+</div></code></pre>
+
+<ol start="3"><li rel="3">设置ftp权限</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-bash hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>setsebool ftp_home_dir on
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>setsebool allow_ftpd_full_access on
+</div></code></pre>
+
+<ol start="4"><li rel="4">关闭防火墙</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-bash hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>service iptables stop --关闭命令
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>chkconfig iptables off --永久关闭防火墙
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>service iptables status --查看防火墙运行状态
+</div></code></pre>
+
+<p>5, 应用管理→系统配置→主系统配置→通用配置→多媒体服务→共享服务列表</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="language-bash hljs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>Media,http://172.19.1.33:8080/MediaRoot/,ftp://172.19.1.33/,egovaftp,egovaftp --添加后务必把其余的项删掉,记得保存
+</div></code></pre></div></body></html>

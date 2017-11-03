@@ -12,6 +12,7 @@ layout: default
 </ul>
 
 [test](./智云多媒体共享及ftp设置.html)
+[test](./智云基础数据导入总结_LBB.html)
 
 <!-- 遍历分页后的文章 -->
 {% for post in paginator.posts %}
